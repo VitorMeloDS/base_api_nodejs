@@ -1,7 +1,7 @@
 {
   "name": "base_api_nodejs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Base para projetos NodeJs com TypeScript, eslint, prettier husky e git-commit-msg-lint",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
