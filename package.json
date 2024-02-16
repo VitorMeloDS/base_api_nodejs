@@ -5,6 +5,9 @@
   "description": "Base para projetos NodeJs com TypeScript, eslint, prettier husky e git-commit-msg-lint",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --watch \"src/**/*\" -e ts,yml --exec \"ts-node ./src/server.ts\"",
+    "build": "npx tsc",
+    "start": "node dist/src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky && husky install"
   },
