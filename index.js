@@ -1,40 +1,48 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
-fs.mkdirSync('nomeDoProjeto');
+async function copyDirectory(source, destination) {
+  try {
+    const files = await fs.readdir(source);
+    await fs.mkdir(destination, { recursive: true });
 
-const packageJson = require(path.join(__dirname, 'package.json'));
+    for (const file of files) {
+      const sourcePath = path.join(source, file);
+      const destinationPath = path.join(destination, file);
+      const fileStat = await fs.stat(sourcePath);
 
-delete packageJson.private;
-delete packageJson.description;
-
-fs.cpSync(path.join(__dirname));
-
-packageJson.name = 'nomeDoProjeto';
-
-fs.writeFileSync(
-  path.join('nomeDoProjeto', 'package.json'),
-  JSON.stringify(packageJson, null, 2)
-);
-
-fs.readdirSync('./', (err, files) => {
-  if (err) throw new Error(err);
-
-  console.log(files);
-  files.forEach((_file) => {
-    const filter = [
-      'script',
-      '.git',
-      '.husky',
-      'package-lock.json',
-      'node_modules',
-      'nomeDoProjeto'
-    ];
-    const _path = path.join(__dirname, 'nomeDoProjeto', _file);
-    if (!filter.includes(_file)) {
-      console.log(`${path.join(__dirname, 'nomeDoProjeto')}/${_file}`);
-      const file = fs.readFileSync(_file);
-      fs.writeFileSync(_path, JSON.stringify(file));
+      if (fileStat.isDirectory()) {
+        await copyDirectory(sourcePath, destinationPath);
+      } else {
+        await fs.copyFile(sourcePath, destinationPath);
+      }
     }
-  });
-});
+
+    console.log(`Diretório ${source} copiado para ${destination} com sucesso!`);
+  } catch (error) {
+    console.error(`Erro ao copiar ${source} para ${destination}:`, error);
+  }
+}
+
+async function createProject() {
+  try {
+    const projectName = process.argv[2];
+    if (!projectName) {
+      throw new Error(
+        'Nome do projeto não especificado. Por favor, execute novamente com o nome do projeto como argumento.'
+      );
+    }
+
+    const srcDir = __dirname;
+    const destDir = path.join(__dirname, projectName);
+
+    await fs.mkdir(destDir);
+    await copyDirectory(srcDir, destDir);
+
+    console.log(`Projeto "${projectName}" criado com sucesso!`);
+  } catch (error) {
+    console.error('Erro ao criar o projeto:', error.message);
+  }
+}
+
+createProject();
