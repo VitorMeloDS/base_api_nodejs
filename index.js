@@ -45,4 +45,6 @@ async function createProject() {
   }
 }
 
-createProject();
+let p = process;
+
+p.stdout.write(createProject());
