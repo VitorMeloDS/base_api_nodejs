@@ -56,7 +56,7 @@ const path = require('path');
 function copyDirectory(arg) {
   const currentDirectory = process.cwd() + '/' + arg;
   const sourceDirectory = path.join(__dirname, 'files_to_copy');
-  const files = fs.readdir(source);
+  const files = fs.readdir(currentDirectory);
   fs.mkdir(currentDirectory, { recursive: true });
 
   for (const file of files) {
