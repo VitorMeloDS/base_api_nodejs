@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
+const { path } = require('path');
 
 // // Obtém o diretório atual
 // const currentDir = process.cwd();
@@ -8,7 +8,7 @@ const { execSync } = require('child_process');
 // console.log('current', process.argv[0]);
 // console.log('current', process.argv[1]);
 // console.log('current', process.argv[2]);
-console.log('antes', __dirname + process.argv[2]);
+console.log('antes', path.join(__dirname, process.argv[2]));
 
 // Altera para o diretório atual
 // process.chdir(currentDir);
