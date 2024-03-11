@@ -67,6 +67,7 @@ async function copyDirectory(arg) {
       const sourcePath = path.join(sourceDirectory, file);
       const destinationPath = path.join(currentDirectory, file);
       const notCopy = ['node_modules', arg, 'index.js', 'cli.js'];
+      const fileStat = fs.stat(sourcePath);
 
       if (fileStat.isDirectory() && !notCopy.includes(file)) {
         await copyDirectory(sourcePath, destinationPath);
