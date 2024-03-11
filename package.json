@@ -1,6 +1,6 @@
 {
   "name": "base_api_nodejs",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "private": false,
   "description": "Base para projetos NodeJs com TypeScript, eslint, prettier husky e git-commit-msg-lint",
   "main": "index.js",
