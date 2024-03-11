@@ -1,5 +1,6 @@
 // cli.js
 const { execSync } = require('child_process');
+const path = require('path');
 
 // Obtém o diretório atual
 const currentDir = process.cwd();
@@ -10,4 +11,4 @@ process.chdir(currentDir);
 const param = process.argv[2];
 
 // Executa o script principal (index.js) do seu pacote
-execSync('node index.js ' + param, { stdio: 'inherit' });
+execSync('node index.js ' + param, { stdio: 'inherit', cwd: path.join(__dirname, '..') });
