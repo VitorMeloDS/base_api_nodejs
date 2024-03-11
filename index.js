@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const fs = require('fs').promises;
+const path = require('path');
 
 const currentDir = process.cwd();
-process.chdir(currentDir);
 const projectName = process.argv[2];
 
 async function copyDirectory(source, destination) {
@@ -12,8 +12,8 @@ async function copyDirectory(source, destination) {
     await fs.mkdir(destination, { recursive: true });
 
     for (const file of files) {
-      const sourcePath = `${source}/${file}`;
-      const destinationPath = `${destination}/${file}`;
+      const sourcePath = path.join(source, file);
+      const destinationPath = path.join(destination, file);
       const fileStat = await fs.stat(sourcePath);
       const notCopy = ['node_modules', projectName, 'index.js'];
 
@@ -39,7 +39,7 @@ async function createProject() {
     }
 
     const srcDir = __dirname;
-    const destDir = `${__dirname}/${projectName}`;
+    const destDir = path.join(currentDir, projectName);
 
     await fs.mkdir(destDir);
     await copyDirectory(srcDir, destDir);
