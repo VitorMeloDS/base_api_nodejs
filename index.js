@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const fs = require('fs').promises;
-const path = require('path');
 
 async function copyDirectory(source, destination) {
   try {
@@ -9,8 +8,8 @@ async function copyDirectory(source, destination) {
     await fs.mkdir(destination, { recursive: true });
 
     for (const file of files) {
-      const sourcePath = path.join(source, file);
-      const destinationPath = path.join(destination, file);
+      const sourcePath = source + file;
+      const destinationPath = destination + file;
       const fileStat = await fs.stat(sourcePath);
 
       if (fileStat.isDirectory()) {
@@ -42,7 +41,7 @@ async function createProject() {
     }
 
     const srcDir = __dirname;
-    const destDir = path.join(__dirname, projectName);
+    const destDir = __dirname + projectName;
 
     await fs.mkdir(destDir);
     await copyDirectory(srcDir, destDir);

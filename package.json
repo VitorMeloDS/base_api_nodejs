@@ -1,6 +1,6 @@
 {
   "name": "base_api_nodejs",
-  "version": "2.1.12",
+  "version": "2.1.13",
   "private": false,
   "description": "Base para projetos NodeJs com TypeScript, eslint, prettier husky e git-commit-msg-lint",
   "main": "index.js",
@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "base_api_nodejs": "cli.js"
+    "base_api_nodejs": "index.js"
   },
   "dependencies": {
     "axios": "^1.6.2",
