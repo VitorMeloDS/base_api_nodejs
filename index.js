@@ -57,25 +57,41 @@ async function copyDirectory(arg) {
   const currentDirectory = process.cwd() + '/' + arg;
   const sourceDirectory = path.join(__dirname);
 
-  fs.readdir(sourceDirectory, (err, files) => {
-    if (err) {
-      console.error('Error reading source directory:', err);
-      return;
+  const files = fs.readdir(sourceDirectory);
+  fs.mkdir(currentDirectory, { recursive: true });
+
+  for (const file of files) {
+    const sourcePath = path.join(sourceDirectory, file);
+    const destinationPath = path.join(currentDirectory, file);
+    const fileStat = fs.stat(sourcePath);
+    const notCopy = ['node_modules', projectName, 'index.js'];
+
+    if (fileStat.isDirectory() && !notCopy.includes(file)) {
+      await copyDirectory(sourcePath, destinationPath);
+    } else if (!notCopy.includes(file)) {
+      fs.copyFile(sourcePath, destinationPath);
     }
+  }
 
-    files.forEach(async (file) => {
-      const sourcePath = path.join(sourceDirectory, file);
-      const destinationPath = path.join(currentDirectory, file);
-      const notCopy = ['node_modules', arg, 'index.js', 'cli.js'];
-      const fileStat = fs.stat(sourcePath);
+  // fs.readdir(sourceDirectory, (err, files) => {
+  //   if (err) {
+  //     console.error('Error reading source directory:', err);
+  //     return;
+  //   }
 
-      if (fileStat.isDirectory() && !notCopy.includes(file)) {
-        await copyDirectory(sourcePath, destinationPath);
-      } else if (!notCopy.includes(file)) {
-        fs.copyFile(sourcePath, destinationPath);
-      }
-    });
-  });
+  //   files.forEach(async (file) => {
+  //     const sourcePath = path.join(sourceDirectory, file);
+  //     const destinationPath = path.join(currentDirectory, file);
+  //     const notCopy = ['node_modules', arg, 'index.js', 'cli.js'];
+  //     const fileStat = fs.stat(sourcePath);
+
+  //     if (fileStat.isDirectory() && !notCopy.includes(file)) {
+  //       await copyDirectory(sourcePath, destinationPath);
+  //     } else if (!notCopy.includes(file)) {
+  //       fs.copyFile(sourcePath, destinationPath);
+  //     }
+  //   });
+  // });
 }
 
 module.exports = copyDirectory;
