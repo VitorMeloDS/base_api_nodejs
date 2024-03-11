@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const copyDirectory = require('./writeFiles');
+const copyDirectory = require('./index');
 
 const arg = process.argv[2];
 
