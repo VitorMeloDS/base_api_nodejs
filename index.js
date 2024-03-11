@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -38,13 +40,9 @@ async function createProject() {
 
     await fs.mkdir(destDir);
     await copyDirectory(srcDir, destDir);
-
-    console.log(`Projeto "${projectName}" criado com sucesso!`);
   } catch (error) {
     console.error('Erro ao criar o projeto:', error.message);
   }
 }
 
-let p = process;
-
-p.stdout.write(createProject());
+createProject();
