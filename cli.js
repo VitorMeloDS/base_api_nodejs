@@ -5,7 +5,9 @@ const { execSync } = require('child_process');
 const currentDir = process.cwd();
 
 console.log('current', currentDir);
-console.log('current', process);
+console.log('current', process.argv[0]);
+console.log('current', process.argv[1]);
+console.log('current', process.argv[2]);
 console.log('antes', __dirname);
 
 // Altera para o diretório atual
