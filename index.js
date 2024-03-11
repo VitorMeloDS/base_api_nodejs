@@ -2,8 +2,7 @@
 
 const fs = require('fs').promises;
 
-const p = process;
-const projectName = p.argv[2];
+const projectName = process.argv[2];
 
 async function copyDirectory(source, destination) {
   try {
@@ -14,12 +13,12 @@ async function copyDirectory(source, destination) {
       const sourcePath = `${source}/${file}`;
       const destinationPath = `${destination}/${file}`;
       const fileStat = await fs.stat(sourcePath);
-      const notCopy = ['node_modules', projectName, 'index.js', 'package-lock.json'];
+      const notCopy = ['node_modules', projectName, 'index.js'];
 
       if (fileStat.isDirectory() && !notCopy.includes(file)) {
         await copyDirectory(sourcePath, destinationPath);
       } else if (!notCopy.includes(file)) {
-        p.stdout.write(await fs.readFile(file));
+        await fs.copyFile(sourcePath, destinationPath);
       }
     }
 
