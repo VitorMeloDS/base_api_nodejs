@@ -2,11 +2,7 @@
 
 const createProject = require('./index');
 
-const arg = process.argv[2];
-
-if (!arg) throw new Error('Argumento invalido!');
-
-createProject(arg);
+createProject();
 
 // const { execSync } = require('child_process');
 // const path = require('path');
