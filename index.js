@@ -2,6 +2,8 @@
 
 const fs = require('fs').promises;
 
+const currentDir = process.cwd();
+process.chdir(currentDir);
 const projectName = process.argv[2];
 
 async function copyDirectory(source, destination) {
