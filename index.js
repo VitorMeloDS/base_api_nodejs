@@ -30,12 +30,6 @@ async function copyDirectory(source, destination) {
 
 async function createProject() {
   try {
-    // Obtém o diretório atual
-    const currentDir = process.cwd();
-
-    // Altera para o diretório atual
-    process.chdir(currentDir);
-
     if (!projectName) {
       throw new Error(
         'Nome do projeto não especificado. Por favor, execute novamente com o nome do projeto como argumento.'
