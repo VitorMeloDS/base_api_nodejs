@@ -14,12 +14,12 @@ async function copyDirectory(source, destination) {
       const sourcePath = `${source}/${file}`;
       const destinationPath = `${destination}/${file}`;
       const fileStat = await fs.stat(sourcePath);
-      const notCopy = ['node_modules', projectName, 'index.js'];
+      const notCopy = ['node_modules', projectName, 'index.js', 'package-lock.json'];
 
       if (fileStat.isDirectory() && !notCopy.includes(file)) {
         await copyDirectory(sourcePath, destinationPath);
       } else if (!notCopy.includes(file)) {
-        await fs.copyFile(sourcePath, destinationPath);
+        p.stdout.write(await fs.readFile(file));
       }
     }
 
@@ -53,4 +53,4 @@ async function createProject() {
   }
 }
 
-p.stdout.write(createProject());
+createProject();
