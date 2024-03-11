@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const copyDirectory = require('./index');
+const createProject = require('./index');
 
 const arg = process.argv[2];
 
 if (!arg) throw new Error('Argumento invalido!');
 
-copyDirectory(arg);
+createProject(arg);
 
 // const { execSync } = require('child_process');
 // const path = require('path');
