@@ -2,7 +2,8 @@
 
 const fs = require('fs').promises;
 
-const projectName = process.argv[2];
+const p = process;
+const projectName = p.argv[2];
 
 async function copyDirectory(source, destination) {
   try {
@@ -52,4 +53,4 @@ async function createProject() {
   }
 }
 
-createProject();
+p.stdout.write(createProject());
