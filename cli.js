@@ -1,14 +1,23 @@
-// cli.js
-const { execSync } = require('child_process');
-const path = require('path');
+#!/usr/bin/env node
 
-// Obtém o diretório atual
-const currentDir = process.cwd();
+const copyDirectory = require('./writeFiles');
 
-// Altera para o diretório atual
-process.chdir(currentDir);
+const arg = process.argv[2];
 
-const param = process.argv[2];
+if (!arg) throw new Error('Argumento invalido!');
 
-// Executa o script principal (index.js) do seu pacote
-execSync('node index.js ' + param, { stdio: 'inherit', cwd: path.join(__dirname, '..') });
+copyDirectory(arg);
+
+// const { execSync } = require('child_process');
+// const path = require('path');
+
+// // Obtém o diretório atual
+// const currentDir = process.cwd();
+
+// // Altera para o diretório atual
+// process.chdir(currentDir);
+
+// const param = process.argv[2];
+
+// // Executa o script principal (index.js) do seu pacote
+// execSync('node index.js ' + param, { stdio: 'inherit', cwd: path.join(__dirname, '..') });
