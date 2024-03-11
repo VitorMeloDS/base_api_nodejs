@@ -28,6 +28,12 @@ async function copyDirectory(source, destination) {
 
 async function createProject() {
   try {
+    // Obtém o diretório atual
+    const currentDir = process.cwd();
+
+    // Altera para o diretório atual
+    process.chdir(currentDir);
+
     const projectName = process.argv[2];
     if (!projectName) {
       throw new Error(
