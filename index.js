@@ -2,6 +2,8 @@
 
 const fs = require('fs').promises;
 
+const projectName = process.argv[2];
+
 async function copyDirectory(source, destination) {
   try {
     const files = await fs.readdir(source);
@@ -11,8 +13,9 @@ async function copyDirectory(source, destination) {
       const sourcePath = `${source}/${file}`;
       const destinationPath = `${destination}/${file}`;
       const fileStat = await fs.stat(sourcePath);
+      const notCopy = ['node_modules', projectName, 'index.js', 'cli.js'];
 
-      if (fileStat.isDirectory()) {
+      if (fileStat.isDirectory() && !notCopy.includes(file)) {
         await copyDirectory(sourcePath, destinationPath);
       } else {
         await fs.copyFile(sourcePath, destinationPath);
@@ -33,7 +36,6 @@ async function createProject() {
     // Altera para o diretório atual
     process.chdir(currentDir);
 
-    const projectName = process.argv[2];
     if (!projectName) {
       throw new Error(
         'Nome do projeto não especificado. Por favor, execute novamente com o nome do projeto como argumento.'
