@@ -64,7 +64,7 @@ async function copyDirectory(arg) {
     }
 
     files.forEach(async (file) => {
-      const sourcePath = path.join(source, file);
+      const sourcePath = path.join(sourceDirectory, file);
       const destinationPath = path.join(currentDirectory, file);
       const notCopy = ['node_modules', projectName, 'index.js'];
 
